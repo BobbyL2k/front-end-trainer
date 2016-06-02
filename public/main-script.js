@@ -1,6 +1,6 @@
 /* jshint browser: true, esversion: 6 */
 
- canvas = document.getElementById("canvas")
+var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 
 // Class system
@@ -13,7 +13,7 @@ var context = canvas.getContext("2d");
             name: "Green Buoy",
             color: "#dfFF4b"
         }
-    ]
+    ];
 
     var currentClassIndex = 0;
 
@@ -45,7 +45,7 @@ var context = canvas.getContext("2d");
     genClickHandler = function (index) {
         return function (event) {
             setCurrentClassIndex(index);
-        }
+        };
     };
 
     for(var index in objectClasses){
@@ -84,7 +84,7 @@ var context = canvas.getContext("2d");
             var data = {
                 id : frame_id,
                 img : imageDataURL
-            }
+            };
             console.log(data);
             $.post("/submit", data, function (params) {
                 console.log(params);
@@ -93,10 +93,10 @@ var context = canvas.getContext("2d");
 
         $("#getnew-button").click(function (event) {
             window.location.reload();
-        })
+        });
 
         $("#clear-button").click(function (event) {
-            console.log($("clicked clear"))
+            console.log("clicked clear");
             clearClick();
             redraw();
         });
@@ -132,17 +132,18 @@ var context = canvas.getContext("2d");
 }// END Events
 
 // Drawing
-    var clickX = new Array();
-    var clickY = new Array();
-    var clickDrag = new Array();
-    var clickColor = new Array();
-    var clickSize = new Array();
+    var clickX      = [];
+    var clickY      = [];
+    var clickDrag   = [];
+    var clickColor  = [];
+    var clickSize   = [];
 
     function clearClick(params) {
-        clickX = new Array();
-        clickY = new Array();
-        clickDrag = new Array();
-        clickColor = new Array();
+        clickX      = [];
+        clickY      = [];
+        clickDrag   = [];
+        clickColor  = [];
+        clickSize   = [];
     }
 
     function removeClick() {
@@ -190,8 +191,10 @@ var context = canvas.getContext("2d");
     }
 // END Drawing
 
-var $canvasdiv = $('#canvas-div');
-$.get('/getframeid',function(data){
-  frame_id = data;
-  $canvasdiv.css('background','url(img.jpg?id='+frame_id+')');
-});
+// Getting Image
+    var $canvasdiv = $('#canvas-div');
+    $.get('/getframeid',function(data){
+        frame_id = data;
+        $canvasdiv.css('background','url(img.jpg?id='+frame_id+')');
+    });
+// END Getting Image
