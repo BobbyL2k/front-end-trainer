@@ -1,6 +1,6 @@
 /* jshint browser: true, esversion: 6 */
 
-var canvas = document.getElementById("canvas")
+ canvas = document.getElementById("canvas")
 var context = canvas.getContext("2d");
 
 // Class system
@@ -81,8 +81,8 @@ var context = canvas.getContext("2d");
         $("#submit-button").click(function (event) {
             var imageDataURL = canvas.toDataURL();
             var data = {
-                img : imageDataURL,
-                password : document.getElementById("password-input").value
+                id : frame_id,
+                img : imageDataURL
             }
             console.log(data);
             $.post("/submit", data, function (params) {
@@ -91,7 +91,6 @@ var context = canvas.getContext("2d");
         });
 
         $("#getnew-button").click(function (event) {
-            window.location.href = "/index.html#" + document.getElementById("password-input").value;
             window.location.reload();
         })
 
@@ -101,12 +100,10 @@ var context = canvas.getContext("2d");
             redraw();
         });
 
-        $("#password-input").val(window.location.hash.substr(1));
     }
     {// Canvas and Mouse state
         var $canvas = $(canvas);
         var paint;
-
         $canvas.mousedown(function(e){
             var mouseX = e.pageX - this.offsetLeft;
             var mouseY = e.pageY - this.offsetTop;
@@ -191,3 +188,9 @@ var context = canvas.getContext("2d");
         }
     }
 // END Drawing
+
+var $canvasdiv = $('#canvas-div');
+$.get('/getframeid',function(data){
+  frame_id = data;
+  $canvasdiv.css('background','url(img.jpg?id='+frame_id+')');
+});
