@@ -58,7 +58,7 @@ var context = canvas.getContext("2d");
 }// END Class Picker button
 
 {// Events
-    {// Buttons
+    {// Forms and Buttons
         $("#undo-button").click(function (event) {
            console.log("clicked undo");
            removeClick();
@@ -90,11 +90,18 @@ var context = canvas.getContext("2d");
             });
         });
 
+        $("#getnew-button").click(function (event) {
+            window.location.href = "/index.html#" + document.getElementById("password-input").value;
+            window.location.reload();
+        })
+
         $("#clear-button").click(function (event) {
             console.log($("clicked clear"))
             clearClick();
             redraw();
         });
+
+        $("#password-input").val(window.location.hash.substr(1));
     }
     {// Canvas and Mouse state
         var $canvas = $(canvas);
