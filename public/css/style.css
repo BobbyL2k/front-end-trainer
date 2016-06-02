@@ -3,3 +3,8 @@
     height: 512px;
     width: 640px;
 }
+
+#canvas {
+    border: 1px
+    solid black;
+}
