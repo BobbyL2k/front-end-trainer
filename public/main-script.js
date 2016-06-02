@@ -28,13 +28,14 @@ var context = canvas.getContext("2d");
 // END Class System
 
 // Brush Size System
-    var brushSizes = [5, 10, 20];
-    var brushIndex = 0;
-    function setBrushIndex(index) {
-        brushIndex = index;
-    }
+    var brushSize = 5;
+    $myslider = $('#brush-size-slider');
+    $myslider.attr({min:1, max:25}).val(brushSize);
+    $myslider.on('input change',function(){
+        brushSize = parseInt($myslider.val());
+    });
     function getBrushSize() {
-        return brushSizes[brushIndex];
+        return brushSize;
     }
 // END Brush Size System
 
