@@ -27,88 +27,16 @@ var context = canvas.getContext("2d");
     }
 // END Class System
 
-// slider-bar-value change pen-size
-
-    var canvas=document.getElementById("canvas");
-    var ctx=canvas.getContext("2d");
-    var cw=canvas.width;
-    var ch=canvas.height;
-    function reOffset(){
-        var BB=canvas.getBoundingClientRect();
-        offsetX=BB.left;
-        offsetY=BB.top;
-    }
-
-    var offsetX,offsetY;
-    reOffset();
-    window.onscroll=function(e){ reOffset(); }
-    window.onresize=function(e){ reOffset(); }
-
-    var isDown=false;
-    var startX,startY;
-
-    ctx.lineCap='round';
-    var linewidth=5;
-    ctx.lineWidth=linewidth;
-
-    $myslider=$('#myslider');
-    $myslider.attr({min:1,max:25}).val(linewidth);
-    $myslider.on('input change',function(){
-        linewidth=ctx.lineWidth=parseInt($(this).val());
-    });
-
-    $("#canvas").mousedown(function(e){handleMouseDown(e);});
-    $("#canvas").mousemove(function(e){handleMouseMove(e);});
-    $("#canvas").mouseup(function(e){handleMouseUpOut(e);});
-    $("#canvas").mouseout(function(e){handleMouseUpOut(e);});
-
-    function handleMouseDown(e){
-        // tell the browser we're handling this event
-        e.preventDefault();
-        e.stopPropagation();
-
-        startX=parseInt(e.clientX-offsetX);
-        startY=parseInt(e.clientY-offsetY);
-
-        // Put your mousedown stuff here
-        isDown=true;
-    }
-
-    function handleMouseUpOut(e){
-        // tell the browser we're handling this event
-        e.preventDefault();
-        e.stopPropagation();
-        // Put your mouseup stuff here
-        isDown=false;
-    }
-
-    function handleMouseMove(e){
-        if(!isDown){return;}
-        // tell the browser we're handling this event
-        e.preventDefault();
-        e.stopPropagation();
-
-        mouseX=parseInt(e.clientX-offsetX);
-        mouseY=parseInt(e.clientY-offsetY);
-
-        ctx.beginPath();
-        ctx.moveTo(startX,startY);
-        ctx.lineTo(mouseX,mouseY);
-        ctx.stroke();
-
-        startX=mouseX;
-        startY=mouseY;
-    }
-
 // Brush Size System
-    /*var brushSizes = [5, 10, 20];
-    var brushIndex = 0;
-    function setBrushIndex(index) {
-        brushIndex = index;
-    }
+    var brushSize = 5;
+    $myslider = $('#brush-size-slider');
+    $myslider.attr({min:1, max:25}).val(brushSize);
+    $myslider.on('input change',function(){
+        brushSize = parseInt($myslider.val());
+    });
     function getBrushSize() {
-        return brushSizes[brushIndex];
-    }*/
+        return brushSize;
+    }
 // END Brush Size System
 
 {// Class Picker button
