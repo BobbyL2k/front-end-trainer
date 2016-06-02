@@ -6,22 +6,21 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <div id="class-picker-buttons-div">
-        </div>
         <div id="upper-form">
-            <button type="button" id="undo-button">undo</button>
-            <button type="button" id="small-button">small</button>
-            <button type="button" id="medium-button">medium</button>
-            <button type="button" id="large-button">large</button>
-
+            <button type="button" id="getnew-button">Get new Image</button>
         </div>
+        <div id="class-picker-buttons-div">
+            Line Width : <input id="brush-size-slider" type="range">
+        </div>
+        <h4>Drag mouse to draw.</h4>
         <div id="canvas-div">
             <canvas id="canvas" width="640" height="512"></canvas>
         </div>
         <div id="lower-form">
-            <button type="button" id="submit-button">Submit</button>
-            <button type="button" id="getnew-button">Get new Image</button>
+            <button type="button" id="undo-button">undo</button>
             <button type="button" id="clear-button">Clear</button>
+            <input type="text" id="password-input" name="password" value="">
+            <button type="button" id="submit-button">Submit</button>
         </div>
     </body>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>

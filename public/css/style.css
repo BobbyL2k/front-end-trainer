@@ -1,4 +1,9 @@
 #canvas-div {
     height: 512px;
     width: 640px;
+    border: 1px solid black;
+}
+
+#brush-size-slider {
+    width: 200px;
 }
