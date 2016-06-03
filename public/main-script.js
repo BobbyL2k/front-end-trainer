@@ -7,15 +7,23 @@ var context = canvas.getContext("2d");
     var objectClasses = [
         {
             name: "Red Buoy",
-            color: "#df4bFF"
+            color: "#df4bFF",
+            key: 49 // 1-key
         },
         {
             name: "Green Buoy",
-            color: "#dfFF4b"
+            color: "#dfFF4b",
+            key: 50 // 2-key
+        },
+        {
+            name: "Eraser",
+            color: "rgb(0, 0, 0)", // DO NOT CHANGE TO #000
+            key: 69 // E-key
         }
     ];
 
     var currentClassIndex = 0;
+    setCurrentClassIndex(0);
 
     function setCurrentClassIndex(index) {
         console.log("Set to class", index, objectClasses[index]);
@@ -30,10 +38,17 @@ var context = canvas.getContext("2d");
 // Brush Size System
     var brushSize = 5;
     $myslider = $('#brush-size-slider');
-    $myslider.attr({min:1, max:25}).val(brushSize);
+    $myslider.attr({min:1, max:50}).val(brushSize);
     $myslider.on('input change',function(){
-        brushSize = parseInt($myslider.val());
+        setBrushSize($myslider.val(), true);
     });
+    function setBrushSize(value, doNotSet=false) {
+        brushSize = parseInt(value);
+        if(!doNotSet) {
+            $myslider.val(value);
+            console.log(":P");
+        }
+    }
     function getBrushSize() {
         return brushSize;
     }
@@ -62,8 +77,7 @@ var context = canvas.getContext("2d");
     {// Forms and Buttons
         $("#undo-button").click(function (event) {
            console.log("clicked undo");
-           removeClick();
-           redraw();
+           callUndo();
         });
 
         $("#small-button").click(function (event) {
@@ -129,6 +143,39 @@ var context = canvas.getContext("2d");
             paint = false;
         });
     }
+    {// Keyboard
+        $(document.body).keydown(function(event){
+            var keyCode = event.keyCode;
+            // console.log(keyCode);
+            // Check in Class
+            for(var c=0; c < objectClasses.length; c++){
+                if( objectClasses[c].key == keyCode ){
+                    setCurrentClassIndex(c);
+                    return;
+                }
+            }
+            if(keyCode == 65){ // A-Key
+                setBrushSize(getBrushSize() - 7);
+                return;
+            }
+            if(keyCode == 83){ // S-Key
+                setBrushSize(getBrushSize() - 2);
+                return;
+            }
+            if(keyCode == 68){ // D-Key
+                setBrushSize(getBrushSize() + 2);
+                return;
+            }
+            if(keyCode == 70){ // F-Key
+                setBrushSize(getBrushSize() + 7);
+                return;
+            }
+            if(keyCode == 90){ // Z-Key
+                callUndo();
+                return;
+            }
+        });
+    }
 }// END Events
 
 // Drawing
@@ -144,6 +191,11 @@ var context = canvas.getContext("2d");
         clickDrag   = [];
         clickColor  = [];
         clickSize   = [];
+    }
+
+    function callUndo(){
+        removeClick();
+        redraw();
     }
 
     function removeClick() {
@@ -175,6 +227,8 @@ var context = canvas.getContext("2d");
         context.lineJoin = "round";
 
         for(var index=0; index < clickX.length; index++) {
+            if(clickColor[index] == "rgb(0, 0, 0)")
+                context.globalCompositeOperation = 'destination-out';
             context.strokeStyle = clickColor[index];
             context.lineWidth = clickSize[index];
             context.beginPath();
@@ -187,6 +241,8 @@ var context = canvas.getContext("2d");
             context.lineTo(clickX[index], clickY[index]);
             context.closePath();
             context.stroke();
+            if(clickColor[index] == "rgb(0, 0, 0)")
+                context.globalCompositeOperation = 'source-over';
         }
     }
 // END Drawing
