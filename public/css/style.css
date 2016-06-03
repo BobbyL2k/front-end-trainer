@@ -1,10 +1,6 @@
-html {
-    display: table;
-    margin: auto;
-}
-
 body {
-    display: table-cell;
+    width: 800px;
+    margin: auto;
 }
 
 #canvas-div {
