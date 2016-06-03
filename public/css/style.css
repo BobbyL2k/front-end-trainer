@@ -4,6 +4,10 @@
     border: 1px solid black;
 }
 
+#canvas {
+    opacity: 0.65;
+}
+
 #brush-size-slider {
     width: 200px;
 }
