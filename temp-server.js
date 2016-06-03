@@ -10,7 +10,7 @@ app.get("/getframeid", function (req, res) {
 });
 
 app.all("/submit", function (req, res) {
-    res.send('Hello World!');
+    res.send('OK');
 });
 
 app.listen(3000);

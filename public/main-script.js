@@ -8,17 +8,22 @@ var brushPreviewContext = brushPreview.getContext("2d");
 // Class system
     var objectClasses = [
         {
-            name: "Red Buoy",
-            color: "#df4bFF",
-            key: 49 // 1-key
+            name: "<b>R</b>ed Buoy",
+            color: "#F44336",
+            key: 82 // R-key
         },
         {
-            name: "Green Buoy",
-            color: "#dfFF4b",
-            key: 50 // 2-key
+            name: "<b>G</b>reen Buoy",
+            color: "#4CAF50",
+            key: 71 // G-key
         },
         {
-            name: "Eraser",
+            name: "<b>Y</b>ellow Buoy",
+            color: "#FFEB3B",
+            key: 89 // Y-key
+        },
+        {
+            name: "<b>E</b>raser",
             color: "rgb(0, 0, 0)", // DO NOT CHANGE TO #000
             key: 69 // E-key
         }
@@ -105,7 +110,11 @@ var brushPreviewContext = brushPreview.getContext("2d");
             };
             console.log(data);
             $.post("/submit", data, function (params) {
-                console.log(params);
+                if(params == "OK"){
+                    window.location.reload();
+                }else{
+                    window.alert("ERROR");
+                }
             });
         });
 
@@ -150,7 +159,7 @@ var brushPreviewContext = brushPreview.getContext("2d");
     {// Keyboard
         $(document.body).keydown(function(event){
             var keyCode = event.keyCode;
-            // console.log(keyCode);
+            console.log(keyCode);
             // Check in Class
             for(var c=0; c < objectClasses.length; c++){
                 if( objectClasses[c].key == keyCode ){
@@ -158,20 +167,12 @@ var brushPreviewContext = brushPreview.getContext("2d");
                     return;
                 }
             }
-            if(keyCode == 65){ // A-Key
-                setBrushSize(getBrushSize() - 7);
-                return;
-            }
-            if(keyCode == 83){ // S-Key
+            if(keyCode == 189){ // --Key
                 setBrushSize(getBrushSize() - 2);
                 return;
             }
-            if(keyCode == 68){ // D-Key
+            if(keyCode == 187){ // +-Key
                 setBrushSize(getBrushSize() + 2);
-                return;
-            }
-            if(keyCode == 70){ // F-Key
-                setBrushSize(getBrushSize() + 7);
                 return;
             }
             if(keyCode == 90){ // Z-Key

@@ -2,36 +2,41 @@
 <html lang="en">
     <head>
         <title>Trainer Frontend</title>
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     </head>
     <body>
-        <div id="upper-form">
-            <button type="button" id="getnew-button">Get new Image</button>
+        <div class="container">
+            <div id="upper-form">
+                <button type="button" id="getnew-button">Get new Image</button>
+            </div>
+            <div id="class-picker-buttons-div">
+                Line Width : <input id="brush-size-slider" type="range">
+            </div>
+            <canvas id="brush-preview" width="55" height="55"></canvas>
+            <div id="canvas-div">
+                <canvas id="canvas" width="640" height="512"></canvas>
+            </div>
+            <div id="lower-form">
+                <button type="button" id="undo-button">undo</button>
+                <button type="button" id="clear-button">Clear</button>
+                <button type="button" id="submit-button">Submit</button>
+            </div>
+            <h4>
+                Drag mouse to draw.
+                HotKeys <br>
+                Number-Key (1-6) to select type <br>
+                E-Key to select eraser <br>
+                A-Key coarse increase brush size <br>
+                S-Key fine increase brush size <br>
+                D-Key fine decrease brush size <br>
+                F-Key coarse decrease brush size <br>
+                Z-Key For Undo
+            </h4>
         </div>
-        <div id="class-picker-buttons-div">
-            Line Width : <input id="brush-size-slider" type="range">
-        </div>
-        <canvas id="brush-preview" width="55" height="55"></canvas>
-        <div id="canvas-div">
-            <canvas id="canvas" width="640" height="512"></canvas>
-        </div>
-        <div id="lower-form">
-            <button type="button" id="undo-button">undo</button>
-            <button type="button" id="clear-button">Clear</button>
-            <button type="button" id="submit-button">Submit</button>
-        </div>
-        <h4>
-            Drag mouse to draw.
-            HotKeys <br>
-            Number-Key (1-6) to select type <br>
-            E-Key to select eraser <br>
-            A-Key coarse increase brush size <br>
-            S-Key fine increase brush size <br>
-            D-Key fine decrease brush size <br>
-            F-Key coarse decrease brush size <br>
-            Z-Key For Undo
-        </h4>
     </body>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script defer src="main-script.js"></script>
