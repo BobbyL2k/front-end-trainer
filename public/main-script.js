@@ -23,6 +23,36 @@ var brushPreviewContext = brushPreview.getContext("2d");
             key: 89 // Y-key
         },
         {
+            name: "Ga<b>T</b>e",
+            color: "#FF9800",
+            key: 84 // T-key
+        },
+        {
+            name: "Na<b>V</b>igate",
+            color: "#795548",
+            key: 86 // V-key
+        },
+        {
+            name: "<b>P</b>ath",
+            color: "#CDDC39",
+            key: 80 // P-key
+        },
+        {
+            name: "<b>S</b>et Course",
+            color: "#E91E63",
+            key: 83 // S-key
+        },
+        {
+            name: "<b>B</b>in",
+            color: "#8BC34A",
+            key: 66 // B-key
+        },
+        {
+            name: "<b>C</b>oin",
+            color: "#00BCD4",
+            key: 67 // B-key
+        },
+        {
             name: "<b>E</b>raser",
             color: "rgb(0, 0, 0)", // DO NOT CHANGE TO #000
             key: 69 // E-key
@@ -103,19 +133,7 @@ var brushPreviewContext = brushPreview.getContext("2d");
         });
 
         $("#submit-button").click(function (event) {
-            var imageDataURL = canvas.toDataURL();
-            var data = {
-                id : frame_id,
-                img : imageDataURL
-            };
-            console.log(data);
-            $.post("/submit", data, function (params) {
-                if(params == "OK"){
-                    window.location.reload();
-                }else{
-                    window.alert("ERROR");
-                }
-            });
+            callSubmit();
         });
 
         $("#getnew-button").click(function (event) {
@@ -179,6 +197,10 @@ var brushPreviewContext = brushPreview.getContext("2d");
                 callUndo();
                 return;
             }
+            if(keyCode == 13){ // Z-Key
+                callSubmit();
+                return;
+            }
         });
     }
 }// END Events
@@ -201,6 +223,24 @@ var brushPreviewContext = brushPreview.getContext("2d");
     function callUndo(){
         removeClick();
         redraw();
+    }
+
+    function callSubmit(){
+        if(confirm("Submit Confirm")){
+            var imageDataURL = canvas.toDataURL();
+            var data = {
+                id : frame_id,
+                img : imageDataURL
+            };
+            console.log(data);
+            $.post("/submit", data, function (params) {
+                if(params == "OK"){
+                    window.location.reload();
+                }else{
+                    window.alert("ERROR");
+                }
+            });
+        }
     }
 
     function removeClick() {
