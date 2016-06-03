@@ -2,6 +2,8 @@
 
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
+var brushPreview = document.getElementById("brush-preview");
+var brushPreviewContext = brushPreview.getContext("2d");
 
 // Class system
     var objectClasses = [
@@ -28,6 +30,7 @@ var context = canvas.getContext("2d");
     function setCurrentClassIndex(index) {
         console.log("Set to class", index, objectClasses[index]);
         currentClassIndex = index;
+        redrawPreview();
     }
 
     function getCurrentColor(){
@@ -48,6 +51,7 @@ var context = canvas.getContext("2d");
             $myslider.val(value);
             console.log(":P");
         }
+        redrawPreview();
     }
     function getBrushSize() {
         return brushSize;
@@ -221,29 +225,45 @@ var context = canvas.getContext("2d");
         clickDrag.push(dragging);
     }
 
-    function redraw(){
-        context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+    function redraw(){// Main window
+            context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
-        context.lineJoin = "round";
+            context.lineJoin = "round";
 
-        for(var index=0; index < clickX.length; index++) {
-            if(clickColor[index] == "rgb(0, 0, 0)")
-                context.globalCompositeOperation = 'destination-out';
-            context.strokeStyle = clickColor[index];
-            context.lineWidth = clickSize[index];
-            context.beginPath();
-            if(clickDrag[index] && index>0) {
-                context.moveTo(clickX[index-1], clickY[index-1]);
-            } else {
-                // Simulate micro move
-                context.moveTo(clickX[index]-1, clickY[index]);
+            for(var index=0; index < clickX.length; index++) {
+                if(clickColor[index] == "rgb(0, 0, 0)")
+                    context.globalCompositeOperation = 'destination-out';
+                context.strokeStyle = clickColor[index];
+                context.lineWidth = clickSize[index];
+                context.beginPath();
+                if(clickDrag[index] && index>0) {
+                    context.moveTo(clickX[index-1], clickY[index-1]);
+                } else {
+                    // Simulate micro move
+                    context.moveTo(clickX[index]-1, clickY[index]);
+                }
+                context.lineTo(clickX[index], clickY[index]);
+                context.closePath();
+                context.stroke();
+                if(clickColor[index] == "rgb(0, 0, 0)")
+                    context.globalCompositeOperation = 'source-over';
             }
-            context.lineTo(clickX[index], clickY[index]);
-            context.closePath();
-            context.stroke();
-            if(clickColor[index] == "rgb(0, 0, 0)")
-                context.globalCompositeOperation = 'source-over';
-        }
+    }
+    function redrawPreview(){// Brush Preview Window
+        brushPreviewContext.clearRect(0, 0,
+            brushPreviewContext.canvas.width,
+            brushPreviewContext.canvas.height); // Clear the canvas
+
+        brushPreviewContext.lineJoin = "round";
+        brushPreviewContext.strokeStyle = getCurrentColor();
+        brushPreviewContext.lineWidth = getBrushSize();
+        brushPreviewContext.beginPath();
+        brushPreviewContext.moveTo(brushPreviewContext.canvas.width/2-1,
+            brushPreviewContext.canvas.height/2);
+        brushPreviewContext.lineTo(brushPreviewContext.canvas.width/2,
+            brushPreviewContext.canvas.height/2);
+        brushPreviewContext.closePath();
+        brushPreviewContext.stroke();
     }
 // END Drawing
 
