@@ -202,11 +202,11 @@ var brushPreviewContext = brushPreview.getContext("2d");
                     return;
                 }
             }
-            if(keyCode == 189){ // --Key
+            if(keyCode == 173 || keyCode == 109){ // --Key
                 setBrushSize(getBrushSize() - 2);
                 return;
             }
-            if(keyCode == 187){ // +-Key
+            if(keyCode == 61 || keyCode == 107){ // +-Key
                 setBrushSize(getBrushSize() + 2);
                 return;
             }
@@ -214,7 +214,7 @@ var brushPreviewContext = brushPreview.getContext("2d");
                 callUndo();
                 return;
             }
-            if(keyCode == 13){ // Z-Key
+            if(keyCode == 13){ // Enter-Key
                 callSubmit();
                 return;
             }
